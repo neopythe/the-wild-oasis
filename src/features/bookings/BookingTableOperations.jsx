@@ -1,6 +1,6 @@
-import SortBy from "../../ui/SortBy";
-import Filter from "../../ui/Filter";
-import TableOperations from "../../ui/TableOperations";
+import Filter from "@/ui/Filter";
+import SortBy from "@/ui/SortBy";
+import TableOperations from "@/ui/TableOperations";
 
 function BookingTableOperations() {
   return (
@@ -14,7 +14,6 @@ function BookingTableOperations() {
           { value: "unconfirmed", label: "Unconfirmed" },
         ]}
       />
-
       <SortBy
         options={[
           { value: "startDate-desc", label: "Sort by date (recent first)" },

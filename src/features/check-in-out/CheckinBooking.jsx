@@ -1,13 +1,14 @@
 import styled from "styled-components";
-import BookingDataBox from "../../features/bookings/BookingDataBox";
 
-import Row from "../../ui/Row";
-import Heading from "../../ui/Heading";
-import ButtonGroup from "../../ui/ButtonGroup";
-import Button from "../../ui/Button";
-import ButtonText from "../../ui/ButtonText";
+import BookingDataBox from "@/features/bookings/BookingDataBox";
 
-import { useMoveBack } from "../../hooks/useMoveBack";
+import { useMoveBack } from "@/hooks/useMoveBack";
+
+import Button from "@/ui/Button";
+import ButtonGroup from "@/ui/ButtonGroup";
+import ButtonText from "@/ui/ButtonText";
+import Heading from "@/ui/Heading";
+import Row from "@/ui/Row";
 
 const Box = styled.div`
   /* Box */
@@ -23,12 +24,12 @@ function CheckinBooking() {
   const booking = {};
 
   const {
-    id: bookingId,
     guests,
-    totalPrice,
-    numGuests,
     hasBreakfast,
+    id: bookingId,
+    numGuests,
     numNights,
+    totalPrice,
   } = booking;
 
   function handleCheckin() {}
@@ -39,9 +40,7 @@ function CheckinBooking() {
         <Heading as="h1">Check in booking #{bookingId}</Heading>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
-
       <BookingDataBox booking={booking} />
-
       <ButtonGroup>
         <Button onClick={handleCheckin}>Check in booking #{bookingId}</Button>
         <Button variation="secondary" onClick={moveBack}>

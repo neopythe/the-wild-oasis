@@ -1,6 +1,7 @@
-import BookingRow from "./BookingRow";
-import Table from "../../ui/Table";
-import Menus from "../../ui/Menus";
+import BookingRow from "@/features/bookings/BookingRow";
+
+import Menus from "@/ui/Menus";
+import Table from "@/ui/Table";
 
 function BookingTable() {
   const bookings = [];
@@ -16,7 +17,6 @@ function BookingTable() {
           <div>Amount</div>
           <div></div>
         </Table.Header>
-
         <Table.Body
           data={bookings}
           render={(booking) => (

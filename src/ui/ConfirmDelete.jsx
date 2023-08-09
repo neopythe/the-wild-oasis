@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import Button from "./Button";
-import Heading from "./Heading";
+
+import Button from "@/ui/Button";
+import Heading from "@/ui/Heading";
 
 const StyledConfirmDelete = styled.div`
   width: 40rem;
@@ -28,7 +29,6 @@ function ConfirmDelete({ resourceName, onConfirm, disabled }) {
         Are you sure you want to delete this {resourceName} permanently? This
         action cannot be undone.
       </p>
-
       <div>
         <Button variation="secondary" disabled={disabled}>
           Cancel
