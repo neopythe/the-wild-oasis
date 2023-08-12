@@ -1,12 +1,12 @@
+import Division from "@/ui/Division";
 import Heading from "@/ui/Heading";
-import Row from "@/ui/Row";
 
 function Cabins() {
   return (
-    <Row type="horizontal">
+    <Division>
       <Heading as="h1">All cabins</Heading>
       <p>TEST</p>
-    </Row>
+    </Division>
   );
 }
 
