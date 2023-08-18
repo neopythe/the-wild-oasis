@@ -1,21 +1,21 @@
 import styled, { css } from "styled-components";
 
 interface DivisionProps {
-  type?: "horizontal" | "vertical";
+  $type?: "horizontal" | "vertical";
 }
 
 const Division = styled.div<DivisionProps>`
   display: flex;
 
-  ${({ type }) =>
-    type === "horizontal" &&
+  ${({ $type }) =>
+    $type === "horizontal" &&
     css`
       justify-content: space-between;
       align-items: center;
     `}
 
-  ${({ type }) =>
-    type === "vertical" &&
+  ${({ $type }) =>
+    $type === "vertical" &&
     css`
       flex-direction: column;
       gap: 1.6rem;
@@ -23,7 +23,7 @@ const Division = styled.div<DivisionProps>`
 `;
 
 Division.defaultProps = {
-  type: "horizontal",
+  $type: "horizontal",
 };
 
 export default Division;
