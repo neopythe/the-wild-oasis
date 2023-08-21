@@ -21,11 +21,13 @@ function SignupForm() {
         <Input type="password" id="passwordConfirm" />
       </FormRow>
       <FormRow>
-        {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
-          Cancel
-        </Button>
-        <Button>Create new user</Button>
+        <>
+          {/* type is an HTML attribute! */}
+          <Button $variation="secondary" type="reset">
+            Cancel
+          </Button>
+          <Button>Create new user</Button>
+        </>
       </FormRow>
     </Form>
   );
