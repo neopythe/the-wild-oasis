@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface TextareaProps {
-  $type: string;
+  $type?: string;
 }
 
 const Textarea = styled.textarea<TextareaProps>`
