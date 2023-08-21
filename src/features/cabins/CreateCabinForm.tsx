@@ -13,15 +13,13 @@ import FormRow from "@/ui/FormRow";
 import Input from "@/ui/Input";
 import Textarea from "@/ui/Textarea";
 
-import { Cabin } from "@/types";
-
 type FormData = {
   name: string;
   maxCapacity: number;
   regularPrice: number;
   discount: number;
   description: string;
-  image: FileList;
+  image: File[];
 };
 
 function CreateCabinForm() {
@@ -43,9 +41,10 @@ function CreateCabinForm() {
   });
 
   function onSubmit(data: FormData) {
-    const newCabin: Partial<Cabin> = {
+    const newCabin = {
       description: data.description,
       discount: data.discount,
+      image: data.image[0],
       max_capacity: data.maxCapacity,
       name: data.name,
       regular_price: data.regularPrice,
@@ -132,7 +131,14 @@ function CreateCabinForm() {
         />
       </FormRow>
       <FormRow label="Cabin photo" error={errors?.image?.message}>
-        <FileInput id="image" accept="image/*" disabled={isCreating} />
+        <FileInput
+          id="image"
+          accept="image/*"
+          disabled={isCreating}
+          {...register("image", {
+            required: "This field is required",
+          })}
+        />
       </FormRow>
       <FormRow>
         <>
