@@ -3,7 +3,7 @@ interface Cabin {
   created_at: string;
   description?: string;
   discount?: number;
-  image?: string;
+  image?: File | string;
   max_capacity?: number;
   name?: string;
   regular_price?: number;
