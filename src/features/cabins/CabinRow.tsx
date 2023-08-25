@@ -3,11 +3,13 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import styled from "styled-components";
 
+import CreateCabinForm from "@/features/cabins/CreateCabinForm";
+
+import { deleteCabin } from "@/services/apiCabins";
+
 import { formatCurrency } from "@/utils/helpers";
 
 import type { Cabin } from "@/types";
-import { deleteCabin } from "@/services/apiCabins";
-import CreateCabinForm from "@/features/cabins/CreateCabinForm";
 
 const TableRow = styled.div`
   display: grid;
@@ -84,7 +86,11 @@ function CabinRow({ cabin }: CabinRowProps) {
         <Cabin>{name}</Cabin>
         <span>Fits up to {maxCapacity} guests</span>
         <Price>{formatCurrency(regularPrice)}</Price>
-        <Discount>{formatCurrency(discount)}</Discount>
+        {discount ? (
+          <Discount>{formatCurrency(discount)}</Discount>
+        ) : (
+          <span>&mdash;</span>
+        )}
         <div>
           <button onClick={() => setShowForm((show) => !show)}>Edit</button>
           <button disabled={isDeleting} onClick={() => mutate(cabinId)}>
