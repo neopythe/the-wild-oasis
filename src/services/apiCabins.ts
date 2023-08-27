@@ -53,6 +53,8 @@ export async function manageCabin(newCabin: Partial<Cabin>, id?: number) {
   }
 
   // Upload image
+  if (hasImagePath) return data;
+
   const { error: storageError } = await supabase.storage
     .from("cabin-images")
     .upload(imageName, newCabin.image as File);
