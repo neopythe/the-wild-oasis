@@ -36,3 +36,39 @@ export const formatCurrency = (value: number | undefined) => {
     .format(value)
     .replace("CA", "");
 };
+
+export const toCamelCase = (string: string): string => {
+  return string.replace(/(_[a-z])/g, (group) =>
+    group.toUpperCase().replace("_", "")
+  );
+};
+
+export const keysToCamelCase = (
+  object: Record<string, unknown>
+): Record<string, unknown> => {
+  const newObject: Record<string, unknown> = {};
+  for (const key in object) {
+    if (Object.prototype.hasOwnProperty.call(object, key)) {
+      newObject[toCamelCase(key)] = object[key];
+    }
+  }
+
+  return newObject;
+};
+
+export const toSnakeCase = (string: string): string => {
+  return string.replace(/([a-z]|(?=[A-Z]))([A-Z])/g, "$1_$2").toLowerCase();
+};
+
+export const keysToSnakeCase = (
+  object: Record<string, unknown>
+): Record<string, unknown> => {
+  const newObject: Record<string, unknown> = {};
+  for (const key in object) {
+    if (Object.prototype.hasOwnProperty.call(object, key)) {
+      newObject[toSnakeCase(key)] = object[key];
+    }
+  }
+
+  return newObject;
+};
