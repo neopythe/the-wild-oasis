@@ -13,7 +13,10 @@ export async function getCabins() {
   }: {
     data: Record<string, unknown>[] | null;
     error: PostgrestError | null;
-  } = await supabase.from("cabins").select("*");
+  } = await supabase
+    .from("cabins")
+    .select("*")
+    .order("id", { ascending: true });
 
   if (error) {
     console.error(error);
