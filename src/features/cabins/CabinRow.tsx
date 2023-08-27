@@ -48,7 +48,7 @@ const Discount = styled.div`
 `;
 
 interface CabinRowProps {
-  cabin: Omit<Cabin, "image"> & { image: string | undefined };
+  cabin: Cabin;
 }
 
 function CabinRow({ cabin }: CabinRowProps) {
@@ -59,7 +59,7 @@ function CabinRow({ cabin }: CabinRowProps) {
     max_capacity: maxCapacity,
     name,
     regular_price: regularPrice,
-  } = cabin;
+  } = cabin as Omit<Cabin, "image"> & { image: string | undefined };
 
   const { deleteCabin, isDeleting } = useDeleteCabin();
 
