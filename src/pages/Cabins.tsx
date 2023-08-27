@@ -13,7 +13,7 @@ function Cabins() {
   return (
     <>
       <Division>
-        <Heading as="h1">All cabins</Heading>
+        <Heading $as="h1">All cabins</Heading>
         <p>Filter / Sort</p>
       </Division>
       <Division $type={"vertical"}>

@@ -6,7 +6,7 @@ import Heading from "@/ui/Heading";
 function Settings() {
   return (
     <Division $type="vertical">
-      <Heading as="h1">Update hotel settings</Heading>
+      <Heading $as="h1">Update hotel settings</Heading>
       <UpdateSettingsForm />
     </Division>
   );

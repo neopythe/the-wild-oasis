@@ -4,7 +4,7 @@ import Heading from "@/ui/Heading";
 function Bookings() {
   return (
     <Division>
-      <Heading as="h1">All bookings</Heading>
+      <Heading $as="h1">All bookings</Heading>
       <p>TEST</p>
     </Division>
   );
