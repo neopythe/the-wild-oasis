@@ -11,11 +11,11 @@ interface Cabin {
 
 interface Settings {
   id: number;
-  created_at: string;
-  min_booking_length: number;
-  max_booking_length: number;
-  max_guests_per_booking: number;
-  breakfast_price: number;
+  createdAt: string;
+  minBookingLength: number;
+  maxBookingLength: number;
+  maxGuestsPerBooking: number;
+  breakfastPrice: number;
 }
 
 export type { Cabin, Settings };
