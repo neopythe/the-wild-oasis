@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import type { FieldErrors } from "react-hook-form";
 
 import { useCreateCabin } from "@/features/cabins/useCreateCabin";
-import { useEditCabin } from "@/features/cabins/useEditCabin";
+import { useUpdateCabin } from "@/features/cabins/useUpdateCabin";
 
 import Button from "@/ui/Button";
 import FileInput from "@/ui/FileInput";
@@ -21,7 +21,7 @@ type FormData = {
   regularPrice: number;
   discount: number;
   description: string;
-  image: File[] | File | string; // When editing, image will be a string
+  image: File[] | File | string; // When updating, image will be a string
 };
 
 interface CreateCabinFormProps {
@@ -45,11 +45,11 @@ function CreateCabinForm({ cabin }: CreateCabinFormProps) {
     } = cabin);
   }
 
-  const isEditSession = Boolean(cabin);
+  const isUpdateSession = Boolean(cabin);
 
   const { formState, getValues, handleSubmit, register, reset } =
     useForm<FormData>({
-      defaultValues: isEditSession
+      defaultValues: isUpdateSession
         ? {
             id,
             image,
@@ -63,9 +63,9 @@ function CreateCabinForm({ cabin }: CreateCabinFormProps) {
   const { errors } = formState;
 
   const { createCabin, isCreating } = useCreateCabin();
-  const { editCabin, isEditing } = useEditCabin();
+  const { updateCabin, isUpdating } = useUpdateCabin();
 
-  const isManaging = isCreating || isEditing;
+  const isManaging = isCreating || isUpdating;
 
   function onSubmit(data: FormData) {
     const newCabin = {
@@ -78,8 +78,8 @@ function CreateCabinForm({ cabin }: CreateCabinFormProps) {
       regular_price: data.regularPrice,
     };
 
-    if (isEditSession)
-      editCabin({ newCabin, id }, { onSuccess: () => reset() });
+    if (isUpdateSession)
+      updateCabin({ newCabin, id }, { onSuccess: () => reset() });
     else createCabin(newCabin, { onSuccess: () => reset() });
   }
 
@@ -166,7 +166,7 @@ function CreateCabinForm({ cabin }: CreateCabinFormProps) {
           accept="image/*"
           disabled={isManaging}
           {...register("image", {
-            required: isEditSession ? false : "This field is required",
+            required: isUpdateSession ? false : "This field is required",
           })}
         />
       </FormRow>
@@ -177,7 +177,7 @@ function CreateCabinForm({ cabin }: CreateCabinFormProps) {
             Cancel
           </Button>
           <Button disabled={isManaging}>
-            {isEditSession ? "Edit cabin" : "Create new cabin"}
+            {isUpdateSession ? "Update cabin" : "Create new cabin"}
           </Button>
         </>
       </FormRow>

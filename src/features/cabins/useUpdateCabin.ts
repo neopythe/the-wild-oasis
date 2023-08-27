@@ -5,20 +5,20 @@ import { manageCabin } from "@/services/apiCabins";
 
 import type { Cabin } from "@/types";
 
-function useEditCabin() {
+function useUpdateCabin() {
   const queryClient = useQueryClient();
 
-  const { isLoading: isEditing, mutate: editCabin } = useMutation({
+  const { isLoading: isUpdating, mutate: updateCabin } = useMutation({
     mutationFn: ({ newCabin, id }: { newCabin: Partial<Cabin>; id: number }) =>
       manageCabin(newCabin, id),
     onSuccess: () => {
-      toast.success("Cabin successfully edited");
+      toast.success("Cabin successfully updated");
       queryClient.invalidateQueries(["cabins"]);
     },
     onError: (error: Error) => toast.error(error.message),
   });
 
-  return { editCabin, isEditing };
+  return { updateCabin, isUpdating };
 }
 
-export { useEditCabin };
+export { useUpdateCabin };
