@@ -1,17 +1,28 @@
 import supabase from "@/services/supabase";
 
+import type { PostgrestError } from "@supabase/supabase-js";
+
+import type { Settings } from "@/types";
+
 export async function getSettings() {
-  const { data, error } = await supabase.from("settings").select("*").single();
+  const {
+    data,
+    error,
+  }: {
+    data: Settings | null;
+    error: PostgrestError | null;
+  } = await supabase.from("settings").select("*").single();
 
   if (error) {
     console.error(error);
     throw new Error("Settings could not be loaded");
   }
+
   return data;
 }
 
 // We expect a newSetting object that looks like {setting: newValue}
-export async function updateSetting(newSetting) {
+export async function updateSetting(newSetting: Settings) {
   const { data, error } = await supabase
     .from("settings")
     .update(newSetting)
@@ -23,5 +34,6 @@ export async function updateSetting(newSetting) {
     console.error(error);
     throw new Error("Settings could not be updated");
   }
+
   return data;
 }
