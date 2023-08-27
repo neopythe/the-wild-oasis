@@ -2,6 +2,8 @@ import supabase from "@/services/supabase";
 
 import type { PostgrestError } from "@supabase/supabase-js";
 
+import { keysToCamelCase, keysToSnakeCase } from "@/utils/helpers";
+
 import type { Cabin } from "@/types";
 
 export async function getCabins() {
@@ -9,7 +11,7 @@ export async function getCabins() {
     data,
     error,
   }: {
-    data: Cabin[] | null;
+    data: Record<string, unknown>[] | null;
     error: PostgrestError | null;
   } = await supabase.from("cabins").select("*");
 
@@ -18,10 +20,15 @@ export async function getCabins() {
     throw new Error("Cabins could not be loaded");
   }
 
-  return data;
+  return data
+    ? data.map((cabin) => keysToCamelCase(cabin) as unknown as Cabin)
+    : null;
 }
 
-export async function manageCabin(newCabin: Partial<Cabin>, id?: number) {
+export async function manageCabin(
+  newCabin: Partial<Cabin>,
+  id?: number | undefined
+) {
   const hasImagePath = typeof newCabin.image === "string";
 
   const imageName = `${String(Math.random()).replace(".", "")}-${
@@ -37,19 +44,21 @@ export async function manageCabin(newCabin: Partial<Cabin>, id?: number) {
 
   // Create cabin
   if (!id)
-    query = supabase.from("cabins").insert([{ ...newCabin, image: imagePath }]);
+    query = supabase
+      .from("cabins")
+      .insert([{ ...keysToSnakeCase(newCabin), image: imagePath }]);
   // Update cabin
   else
     query = supabase
       .from("cabins")
-      .update({ ...newCabin, image: imagePath })
+      .update({ ...keysToSnakeCase(newCabin), image: imagePath })
       .eq("id", id);
 
   const { data, error } = await query.select().single();
 
   if (error) {
     console.error(error);
-    throw new Error("Cabin could not be created");
+    throw new Error("Cabin management unsuccessful");
   }
 
   // Upload image

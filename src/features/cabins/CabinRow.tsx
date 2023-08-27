@@ -59,9 +59,9 @@ function CabinRow({ cabin }: CabinRowProps) {
     discount,
     id: cabinId,
     image,
-    max_capacity: maxCapacity,
+    maxCapacity,
     name,
-    regular_price: regularPrice,
+    regularPrice,
   } = cabin as Omit<Cabin, "image"> & { image: string | undefined };
 
   const { createCabin, isCreating } = useCreateCabin();
@@ -74,9 +74,9 @@ function CabinRow({ cabin }: CabinRowProps) {
       description,
       discount,
       image,
-      max_capacity: maxCapacity,
+      maxCapacity,
       name: `Copy of ${name}`,
-      regular_price: regularPrice,
+      regularPrice,
     });
   }
 

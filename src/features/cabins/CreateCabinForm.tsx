@@ -14,50 +14,22 @@ import Textarea from "@/ui/Textarea";
 
 import type { Cabin } from "@/types";
 
-type FormData = {
-  id?: number;
-  name: string;
-  maxCapacity: number;
-  regularPrice: number;
-  discount: number;
-  description: string;
-  image: File[] | File | string; // When updating, image will be a string
-};
+type FormData = Partial<Omit<Cabin, "image">> & {
+  image: File[] | File | string;
+}; // When updating, image will be a string
 
 interface CreateCabinFormProps {
   cabin?: Cabin;
 }
 
-let id: number;
-let image: File | string | undefined;
-let maxCapacity: number | undefined;
-let regularPrice: number | undefined;
-let rest: Partial<Cabin>;
-
 function CreateCabinForm({ cabin }: CreateCabinFormProps) {
-  if (cabin) {
-    ({
-      id,
-      image,
-      max_capacity: maxCapacity,
-      regular_price: regularPrice,
-      ...rest
-    } = cabin);
-  }
+  const { ...updateValues } = cabin || {};
 
   const isUpdateSession = Boolean(cabin);
 
   const { formState, getValues, handleSubmit, register, reset } =
     useForm<FormData>({
-      defaultValues: isUpdateSession
-        ? {
-            id,
-            image,
-            maxCapacity,
-            regularPrice,
-            ...rest,
-          }
-        : {},
+      defaultValues: isUpdateSession ? updateValues : {},
     });
 
   const { errors } = formState;
@@ -68,14 +40,12 @@ function CreateCabinForm({ cabin }: CreateCabinFormProps) {
   const isManaging = isCreating || isUpdating;
 
   function onSubmit(data: FormData) {
+    const id = cabin?.id as number;
+
     const newCabin = {
-      description: data.description,
-      discount: data.discount,
+      ...data,
       image:
         typeof data.image === "string" ? data.image : (data.image as File[])[0],
-      max_capacity: data.maxCapacity,
-      name: data.name,
-      regular_price: data.regularPrice,
     };
 
     if (isUpdateSession)
@@ -137,10 +107,10 @@ function CreateCabinForm({ cabin }: CreateCabinFormProps) {
           {...register("discount", {
             required: "This field is required",
             validate: (value) => {
-              if (value > +getValues("regularPrice"))
+              if (value! > +getValues("regularPrice")!)
                 return "Discount cannot be greater than regular price";
 
-              if (value < 0) return "Discount cannot be negative";
+              if (value! < 0) return "Discount cannot be negative";
 
               return true;
             },
