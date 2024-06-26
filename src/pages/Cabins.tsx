@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import CabinTable from "@/features/cabins/CabinTable";
+import CabinTableOperations from "@/features/cabins/CabinTableOperations";
 import CreateCabinForm from "@/features/cabins/CreateCabinForm";
 
 import Button from "@/ui/Button";
@@ -14,7 +15,7 @@ function Cabins() {
     <>
       <Division>
         <Heading $as="h1">All cabins</Heading>
-        <p>Filter / Sort</p>
+        <CabinTableOperations />
       </Division>
       <Division $type={"vertical"}>
         <CabinTable />
